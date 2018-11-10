@@ -1,2 +1,2 @@
-# quicktippgenerator
-Solution for a programming exercise to create quick tipps for lottieries
+# quicktipgenerator
+Solution for a programming exercise to generate quick tips for lotteries
