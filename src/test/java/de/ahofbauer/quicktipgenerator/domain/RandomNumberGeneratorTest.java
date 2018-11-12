@@ -45,7 +45,7 @@ class RandomNumberGeneratorTest {
 
     @Test
     void shouldNotGenerateTheSameNumbersMultipleTimes() {
-        mockRandomWithNumbers(1, 2, 3, 4, 5);
+        mockRandomWithNumbers(1, 2, 3, 2, 3, 4, 5);
 
         List<Integer> numbers = randomNumberGenerator.generateNumbers(AMOUNT_OF_NUMBERS, MAX_NUMBER, MISFORTUNE_NUMBERS);
 
