@@ -40,5 +40,11 @@ class MisfortuneNumbersTest {
         assertThat(misfortuneNumbers.isMisfortuneNumber(2), is(true));
     }
 
+    @Test
+    void testIsEmpty() {
+        assertThat(new MisfortuneNumbers(toList(1)).isEmpty(), is(false));
+        assertThat(new MisfortuneNumbers(toList()).isEmpty(), is(true));
+    }
+
 
 }

@@ -10,7 +10,7 @@ import static org.hamcrest.core.Is.is;
 /**
  * Contains a set of static functions to be used in unit tests.
  */
-class TestHelperFunctions {
+public class TestHelperFunctions {
 
     private TestHelperFunctions() {
         // Static function container should not be instanced
@@ -19,7 +19,7 @@ class TestHelperFunctions {
     /**
      * Converts an array to a array list.
      */
-    static <T> List<T> toList(T... items) {
+    public static <T> List<T> toList(T... items) {
         return new ArrayList<>(Arrays.asList(items));
     }
 

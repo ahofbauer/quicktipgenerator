@@ -33,4 +33,11 @@ public class MisfortuneNumbers {
         return numbers.contains(number);
     }
 
+    /**
+     * @return <code>true</code> if the object does not contain any number.
+     */
+    public boolean isEmpty() {
+        return numbers.isEmpty();
+    }
+
 }
