@@ -28,11 +28,7 @@ public class MisfortuneNumbersFactory {
     public MisfortuneNumbers createNewInstance(List<Integer> numbers) {
         List<Integer> numbersToCheck = nullToEmpty(numbers);
 
-        List<String> errorMessages = new ArrayList<>();
-
-        validateNumberRange(numbersToCheck, errorMessages);
-        validateListSize(numbersToCheck, errorMessages);
-
+        List<String> errorMessages = validate(numbersToCheck);
         if (errorMessages.size() > 0) {
             throw new ValidationException(errorMessages);
         }
@@ -42,6 +38,16 @@ public class MisfortuneNumbersFactory {
 
     private List<Integer> nullToEmpty(List<Integer> numbers) {
         return numbers == null ? Collections.emptyList() : numbers;
+    }
+
+    /**
+     * Validates if the given numbers are a valid input to create a MisfortuneNumbers instance.
+     */
+    public List<String> validate(List<Integer> numbers) {
+        List<String> errorMessages = new ArrayList<>();
+        validateNumberRange(numbers, errorMessages);
+        validateListSize(numbers, errorMessages);
+        return errorMessages;
     }
 
     private void validateListSize(List<Integer> numbersToCheck, List<String> errorMessages) {

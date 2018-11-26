@@ -68,4 +68,17 @@ class MisfortuneNumbersFactoryTest {
         )));
     }
 
+    @Test
+    void validateShouldReturnErrorForSevenNumbers() {
+        assertThat(factory.validate(toList(1, 2, 3, 4, 5, 6, 7)),
+                is(toList("Es sind maximal sechs Unglückszahlen erlaubt.")));
+    }
+
+    @Test
+    void validateShouldReturnErrorForNumbersOutOfRange() {
+        assertThat(factory.validate(toList(1, 2, -3, 4, 51, 6)),
+                is(toList("Unglückzahlen müssen zwischen 1 und 50 liegen: -3, 51")));
+    }
+
+
 }
