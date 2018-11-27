@@ -19,4 +19,9 @@ public class EuroJackpotTipRowGenerator implements LotteryTipRowGenerator {
         );
     }
 
+    @Override
+    public String getLotteryName() {
+        return "eurojackpot";
+    }
+
 }

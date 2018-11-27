@@ -1,10 +1,10 @@
 package de.ahofbauer.quicktipgenerator.application.commands;
 
-import de.ahofbauer.quicktipgenerator.application.output.Output;
-import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumberRepository;
+import de.ahofbauer.quicktipgenerator.application.config.LotteryConfiguration;
 import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumbers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Answers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,10 +19,8 @@ import static org.mockito.BDDMockito.then;
 @ExtendWith(MockitoExtension.class)
 class SetMisfortuneNumbersCommandTest {
 
-    @Mock
-    private MisfortuneNumberRepository repositoryMock;
-    @Mock
-    private Output outputMock;
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    private LotteryConfiguration configurationMock;
 
     @InjectMocks
     private SetMisfortuneNumbersCommand command;
@@ -56,7 +54,7 @@ class SetMisfortuneNumbersCommandTest {
 
         ArgumentCaptor<MisfortuneNumbers> captor = ArgumentCaptor.forClass(MisfortuneNumbers.class);
 
-        then(repositoryMock).should().save(captor.capture());
+        then(configurationMock.misfortuneNumberRepository()).should().save(captor.capture());
 
         assertThat(captor.getValue().getNumbers(), is(toList(7, 13, 23)));
     }

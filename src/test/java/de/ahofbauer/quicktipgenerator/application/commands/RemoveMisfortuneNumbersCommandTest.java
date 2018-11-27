@@ -1,9 +1,12 @@
 package de.ahofbauer.quicktipgenerator.application.commands;
 
+import de.ahofbauer.quicktipgenerator.application.config.LotteryConfiguration;
 import de.ahofbauer.quicktipgenerator.application.output.Output;
 import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumberRepository;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -11,15 +14,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static de.ahofbauer.quicktipgenerator.domain.TestHelperFunctions.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 class RemoveMisfortuneNumbersCommandTest {
 
-    @Mock
-    private MisfortuneNumberRepository repositoryMock;
-    @Mock
-    private Output outputMock;
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+    private LotteryConfiguration configurationMock;
 
     @InjectMocks
     private RemoveMisfortuneNumbersCommand command;
@@ -39,6 +41,6 @@ class RemoveMisfortuneNumbersCommandTest {
     void executeShouldDeleteMisfortuneNumbers() {
         command.executeCommand(toList());
 
-        then(repositoryMock).should().delete();
+        then(configurationMock.misfortuneNumberRepository()).should().delete();
     }
 }

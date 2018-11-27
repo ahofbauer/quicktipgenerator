@@ -17,4 +17,9 @@ public class SixOfFortyNineTipRowGenerator implements LotteryTipRowGenerator {
         );
     }
 
+    @Override
+    public String getLotteryName() {
+        return "6aus49";
+    }
+
 }

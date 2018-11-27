@@ -11,4 +11,9 @@ public interface LotteryTipRowGenerator {
      */
     TipRow generateTipRow(MisfortuneNumbers misfortuneNumbers);
 
+    /**
+     * Returns the name of the lottery. Also used for the command to generate tip rows.
+     */
+    String getLotteryName();
+
 }

@@ -3,6 +3,8 @@ package de.ahofbauer.quicktipgenerator.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.joining;
+
 /**
  * A series of numbers which should not be part of any generated tip row because the user relates these numbers with
  * bad luck.
@@ -40,4 +42,8 @@ public class MisfortuneNumbers {
         return numbers.isEmpty();
     }
 
+    @Override
+    public String toString() {
+        return numbers.stream().map(String::valueOf).collect(joining(" "));
+    }
 }

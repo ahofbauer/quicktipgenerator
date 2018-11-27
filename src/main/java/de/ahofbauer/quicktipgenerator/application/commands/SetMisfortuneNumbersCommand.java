@@ -1,5 +1,6 @@
 package de.ahofbauer.quicktipgenerator.application.commands;
 
+import de.ahofbauer.quicktipgenerator.application.config.LotteryConfiguration;
 import de.ahofbauer.quicktipgenerator.application.output.Output;
 import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumberRepository;
 import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumbers;
@@ -18,10 +19,10 @@ public class SetMisfortuneNumbersCommand implements Command {
     private MisfortuneNumbersFactory factory;
     private Output output;
 
-    public SetMisfortuneNumbersCommand(MisfortuneNumberRepository repository, Output output) {
-        this.repository = repository;
+    public SetMisfortuneNumbersCommand(LotteryConfiguration lotteryConfiguration) {
+        this.repository = lotteryConfiguration.misfortuneNumberRepository();
         this.factory = new MisfortuneNumbersFactory();
-        this.output = output;
+        this.output = lotteryConfiguration.output();
     }
 
     @Override

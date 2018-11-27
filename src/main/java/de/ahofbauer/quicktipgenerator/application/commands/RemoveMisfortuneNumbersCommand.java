@@ -1,5 +1,6 @@
 package de.ahofbauer.quicktipgenerator.application.commands;
 
+import de.ahofbauer.quicktipgenerator.application.config.LotteryConfiguration;
 import de.ahofbauer.quicktipgenerator.application.output.Output;
 import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumberRepository;
 
@@ -14,9 +15,9 @@ public class RemoveMisfortuneNumbersCommand implements Command {
     private MisfortuneNumberRepository repository;
     private Output output;
 
-    public RemoveMisfortuneNumbersCommand(MisfortuneNumberRepository repository, Output output) {
-        this.repository = repository;
-        this.output = output;
+    public RemoveMisfortuneNumbersCommand(LotteryConfiguration configuration) {
+        this.repository = configuration.misfortuneNumberRepository();
+        this.output = configuration.output();
     }
 
     @Override

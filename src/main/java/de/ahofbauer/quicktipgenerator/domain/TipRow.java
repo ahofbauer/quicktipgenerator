@@ -39,7 +39,7 @@ public class TipRow {
         private final String name;
         private final List<Integer> numbers;
 
-        TipRowPart(String name, List<Integer> numbers) {
+        public TipRowPart(String name, List<Integer> numbers) {
             this.name = name;
             // Copy the list, so that you are not able to alter the state from outside of the class
             this.numbers = new ArrayList<>(numbers);
