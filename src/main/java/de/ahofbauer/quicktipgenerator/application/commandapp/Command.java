@@ -1,4 +1,4 @@
-package de.ahofbauer.quicktipgenerator.application.commands;
+package de.ahofbauer.quicktipgenerator.application.commandapp;
 
 import java.util.List;
 

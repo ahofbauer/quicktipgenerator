@@ -1,6 +1,6 @@
 package de.ahofbauer.quicktipgenerator.application.commands;
 
-import de.ahofbauer.quicktipgenerator.application.config.LotteryConfiguration;
+import de.ahofbauer.quicktipgenerator.application.commandapp.Command;
 import de.ahofbauer.quicktipgenerator.application.output.Output;
 import de.ahofbauer.quicktipgenerator.domain.LotteryTipRowGenerator;
 import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumberRepository;
@@ -35,13 +35,13 @@ public class GenerateTipRowCommand implements Command {
 
     @Override
     public String getInvokePatternDescription() {
-        return "-g [lottery]...";
+        return "-g [Lotterie]...";
     }
 
     @Override
     public String getDescription() {
-        StringBuilder sb = new StringBuilder("Generates a tip row for the specified lottery. ");
-        sb.append("Available lotteries are: ");
+        StringBuilder sb = new StringBuilder("Generiert Tippreihen für die angegebenen Lotterien. ");
+        sb.append("Verfügbare Lotterien sind: ");
         sb.append(
                 lotteryTipRowGeneratorMap.keySet().stream()
                         .collect(joining(", "))

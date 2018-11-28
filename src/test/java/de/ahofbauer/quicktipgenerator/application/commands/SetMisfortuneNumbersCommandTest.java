@@ -1,6 +1,5 @@
 package de.ahofbauer.quicktipgenerator.application.commands;
 
-import de.ahofbauer.quicktipgenerator.application.config.LotteryConfiguration;
 import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumbers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

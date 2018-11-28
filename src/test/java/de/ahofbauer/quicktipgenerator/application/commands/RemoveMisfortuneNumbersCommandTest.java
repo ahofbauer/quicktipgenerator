@@ -1,9 +1,5 @@
 package de.ahofbauer.quicktipgenerator.application.commands;
 
-import de.ahofbauer.quicktipgenerator.application.config.LotteryConfiguration;
-import de.ahofbauer.quicktipgenerator.application.output.Output;
-import de.ahofbauer.quicktipgenerator.domain.MisfortuneNumberRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -14,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static de.ahofbauer.quicktipgenerator.domain.TestHelperFunctions.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)

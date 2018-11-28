@@ -1,4 +1,4 @@
-package de.ahofbauer.quicktipgenerator.application.config;
+package de.ahofbauer.quicktipgenerator.application.commands;
 
 import de.ahofbauer.quicktipgenerator.application.output.Output;
 import de.ahofbauer.quicktipgenerator.domain.LotteryTipRowGenerator;
