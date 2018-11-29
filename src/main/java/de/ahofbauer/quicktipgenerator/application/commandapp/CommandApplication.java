@@ -16,16 +16,22 @@ public class CommandApplication {
     private Map<String, Command> commandMap;
     private Output output;
     private ArgumentParser argumentParser;
+    private HelpCommand helpCommand;
 
     public CommandApplication(CommandConfiguration commandConfiguration) {
-        this.commandMap = commandConfiguration.commands().stream()
+        commandMap = commandConfiguration.commands().stream()
                 .collect(toMap(Command::getCommandLineParameter, command -> command));
-        this.output = commandConfiguration.output();
-        this.argumentParser = new ArgumentParser();
+        helpCommand = new HelpCommand(commandConfiguration);
+        commandMap.put(helpCommand.getCommandLineParameter(), helpCommand);
+        output = commandConfiguration.output();
+        argumentParser = new ArgumentParser();
     }
 
     public void run(String... arguments) {
         List<CommandInfo> commandInfoList = argumentParser.parseArguments(arguments);
+        if (commandInfoList.isEmpty()) {// If no command was chosen show the help
+            commandInfoList.add(new CommandInfo(helpCommand.getCommandLineParameter()));
+        }
         if (isValid(commandInfoList)) {
             for (CommandInfo info : commandInfoList) {
                 Command command = commandMap.get(info.getCommandName());

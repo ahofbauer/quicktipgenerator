@@ -1,117 +1,84 @@
 package de.ahofbauer.quicktipgenerator.application.commandapp;
 
-import de.ahofbauer.quicktipgenerator.application.output.Output;
 import de.ahofbauer.quicktipgenerator.application.output.TestOutput;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static de.ahofbauer.quicktipgenerator.domain.TestHelperFunctions.toList;
+import static de.ahofbauer.quicktipgenerator.application.commandapp.TestCommand.createTestCommandConfiguration;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 class CommandApplicationTest {
 
+    private TestCommand testCommandA = new TestCommand("a", "1");
+    private TestCommand testCommandB = new TestCommand("b", "2");
+
     @Test
     void runShouldExecuteMultipleCommands() {
-        TestCommand testCommandA = new TestCommand("a", "1");
-        TestCommand testCommandB = new TestCommand("b", "2");
-        CommandConfiguration configuration = createConfiguration(testCommandA, testCommandB);
+
+        CommandConfiguration configuration = createTestCommandConfiguration(testCommandA, testCommandB);
 
         new CommandApplication(configuration).run("-a", "1", "-b", "2");
 
-        assertThat("Command has not been executed", testCommandA.executed, is(true));
-        assertThat("Command has not been executed", testCommandB.executed, is(true));
+        assertThat("Command has not been executed", testCommandA.isExecuted(), is(true));
+        assertThat("Command has not been executed", testCommandB.isExecuted(), is(true));
     }
 
     @Test
     void runShouldNotExecuteAnyCommandIfValidationFails() {
-        TestCommand testCommandA = new TestCommand("a", "1");
-        TestCommand testCommandB = new TestCommand("b", "2");
-        CommandConfiguration configuration = createConfiguration(testCommandA, testCommandB);
+        CommandConfiguration configuration = createTestCommandConfiguration(testCommandA, testCommandB);
 
         new CommandApplication(configuration).run("-a", "1", "-b", "3");
 
-        assertThat("Command should not have been executed", testCommandA.executed, is(false));
-        assertThat("Command should not have been executed", testCommandB.executed, is(false));
+        assertThat("Command should not have been executed", testCommandA.isExecuted(), is(false));
+        assertThat("Command should not have been executed", testCommandB.isExecuted(), is(false));
         TestOutput testOutput = (TestOutput) configuration.output();
         assertThat(testOutput.getOutputAsString(), is("Fehler beim ausführen von: -b 3\nWrong parameter\n"));
     }
 
     @Test
     void runShouldComplainAboutUnknownCommands() {
-        TestCommand testCommandB = new TestCommand("b", "2");
         TestCommand testCommandD = new TestCommand("d", "4");
-        CommandConfiguration configuration = createConfiguration(testCommandB, testCommandD);
+        CommandConfiguration configuration = createTestCommandConfiguration(testCommandB, testCommandD);
 
         new CommandApplication(configuration).run("1", "-b", "2", "-c", "3", "-d", "4");
 
-        assertThat("Command should not have been executed", testCommandB.executed, is(false));
-        assertThat("Command should not have been executed", testCommandD.executed, is(false));
+        assertThat("Command should not have been executed", testCommandB.isExecuted(), is(false));
+        assertThat("Command should not have been executed", testCommandD.isExecuted(), is(false));
         TestOutput testOutput = (TestOutput) configuration.output();
         assertThat(testOutput.getOutputAsString(), is(
                 "Fehler beim ausführen von: 1\nUnbekanntes Kommando\n" +
-                "Fehler beim ausführen von: -c 3\nUnbekanntes Kommando\n"
+                        "Fehler beim ausführen von: -c 3\nUnbekanntes Kommando\n"
         ));
     }
 
-    private CommandConfiguration createConfiguration(Command... commands) {
-        TestOutput testOutput = new TestOutput();
-        return new CommandConfiguration() {
-            @Override
-            public List<Command> commands() {
-                return toList(commands);
-            }
+    @Test
+    void shouldIncludeHelpCommand() {
+        CommandConfiguration configuration = createTestCommandConfiguration(testCommandA, testCommandB);
 
-            @Override
-            public Output output() {
-                return testOutput;
-            }
-        };
+        new CommandApplication(configuration).run("-h");
+
+        TestOutput output = (TestOutput) configuration.output();
+        assertThat(output.getOutputAsString(), is(
+                "Verfügbare Kommandos:\n" +
+                        "-a 1 - Test command a\n" +
+                        "-b 2 - Test command b\n" +
+                        "-h - Hilfe: Listet alle verfügbaren Kommandos und ihre Beschreibungen auf.\n"
+        ));
     }
 
-    /**
-     * Command used for tests. Excepts the given parameter, will return an validation error otherwise.
-     */
-    static class TestCommand implements Command {
+    @Test
+    void shouldRunHelpCommandForNoArgument() {
+        CommandConfiguration configuration = createTestCommandConfiguration(testCommandA, testCommandB);
 
-        private String command;
-        private String expectedParameter;
-        private boolean executed = false;
+        new CommandApplication(configuration).run();
 
-        TestCommand(String command, String expectedParameter) {
-            this.command = command;
-            this.expectedParameter = expectedParameter;
-        }
-
-        @Override
-        public String getCommandLineParameter() {
-            return command;
-        }
-
-        @Override
-        public String getInvokePatternDescription() {
-            return command + " " + expectedParameter;
-        }
-
-        @Override
-        public String getDescription() {
-            return "Test command " + command;
-        }
-
-        @Override
-        public List<String> validateArguments(List<String> arguments) {
-            if (arguments.equals(toList(expectedParameter))) {
-                return toList();
-            } else {
-                return toList("Wrong parameter");
-            }
-        }
-
-        @Override
-        public void executeCommand(List<String> arguments) {
-            executed = true;
-        }
+        TestOutput output = (TestOutput) configuration.output();
+        assertThat(output.getOutputAsString(), is(
+                "Verfügbare Kommandos:\n" +
+                        "-a 1 - Test command a\n" +
+                        "-b 2 - Test command b\n" +
+                        "-h - Hilfe: Listet alle verfügbaren Kommandos und ihre Beschreibungen auf.\n"
+        ));
     }
 
 }
