@@ -27,7 +27,7 @@ public class RemoveMisfortuneNumbersCommand implements Command {
 
     @Override
     public String getInvokePatternDescription() {
-        return "-l";
+        return "";
     }
 
     @Override

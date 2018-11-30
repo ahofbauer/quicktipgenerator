@@ -35,18 +35,14 @@ public class GenerateTipRowCommand implements Command {
 
     @Override
     public String getInvokePatternDescription() {
-        return "-g [Lotterie]...";
+        return lotteryTipRowGeneratorMap.keySet().stream()
+                .map(lottery -> "[" + lottery + "]")
+                .collect(joining(" "));
     }
 
     @Override
     public String getDescription() {
-        StringBuilder sb = new StringBuilder("Generiert Tippreihen für die angegebenen Lotterien. ");
-        sb.append("Verfügbare Lotterien sind: ");
-        sb.append(
-                lotteryTipRowGeneratorMap.keySet().stream()
-                        .collect(joining(", "))
-        );
-        return sb.toString();
+        return "Generiert Tippreihen für die angegebenen Lotterien.";
     }
 
     @Override

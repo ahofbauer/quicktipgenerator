@@ -26,7 +26,7 @@ public class HelpCommand implements Command {
 
     @Override
     public String getInvokePatternDescription() {
-        return "-h";
+        return "";
     }
 
     @Override
@@ -47,7 +47,16 @@ public class HelpCommand implements Command {
     public void executeCommand(List<String> arguments) {
         output.println("Verfügbare Kommandos:");
         commands.forEach(command -> {
-            output.println("{0} - {1}", command.getInvokePatternDescription(), command.getDescription());
+            output.println("-{0}{1} - {2}", command.getCommandLineParameter(),
+                    getInvokePatternDescription(command), command.getDescription());
         });
+    }
+
+    private String getInvokePatternDescription(Command command) {
+        if (command.getInvokePatternDescription().isEmpty()) {
+            return "";
+        } else {
+            return " " + command.getInvokePatternDescription();
+        }
     }
 }

@@ -28,7 +28,7 @@ class TestCommand implements Command {
 
     @Override
     public String getInvokePatternDescription() {
-        return "-" + command + " " + expectedParameter;
+        return expectedParameter;
     }
 
     @Override

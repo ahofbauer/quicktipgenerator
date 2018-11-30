@@ -2,8 +2,12 @@ package de.ahofbauer.quicktipgenerator.application.config;
 
 import de.ahofbauer.quicktipgenerator.application.commandapp.Command;
 import de.ahofbauer.quicktipgenerator.application.commandapp.CommandConfiguration;
-import de.ahofbauer.quicktipgenerator.application.commands.*;
+import de.ahofbauer.quicktipgenerator.application.commands.GenerateTipRowCommand;
+import de.ahofbauer.quicktipgenerator.application.commands.LotteryConfiguration;
+import de.ahofbauer.quicktipgenerator.application.commands.RemoveMisfortuneNumbersCommand;
+import de.ahofbauer.quicktipgenerator.application.commands.SetMisfortuneNumbersCommand;
 import de.ahofbauer.quicktipgenerator.application.filestorage.FileStorageMisfortuneNumberRepository;
+import de.ahofbauer.quicktipgenerator.application.interactive.InteractiveModeCommand;
 import de.ahofbauer.quicktipgenerator.application.output.ConsoleOutput;
 import de.ahofbauer.quicktipgenerator.application.output.Output;
 import de.ahofbauer.quicktipgenerator.domain.EuroJackpotTipRowGenerator;
@@ -33,7 +37,8 @@ public class DefaultConfiguration implements LotteryConfiguration, CommandConfig
         return Arrays.asList(
                 new SetMisfortuneNumbersCommand(this),
                 new RemoveMisfortuneNumbersCommand(this),
-                new GenerateTipRowCommand(this)
+                new GenerateTipRowCommand(this),
+                new InteractiveModeCommand(this)
         );
     }
 

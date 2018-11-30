@@ -9,7 +9,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 
 /**
- * Application able to process commands. See {@link Command}.
+ * Application able to process commands from the command line. See {@link Command}.
  */
 public class CommandApplication {
 

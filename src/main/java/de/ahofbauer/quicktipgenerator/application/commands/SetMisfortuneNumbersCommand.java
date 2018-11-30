@@ -32,7 +32,7 @@ public class SetMisfortuneNumbersCommand implements Command {
 
     @Override
     public String getInvokePatternDescription() {
-        return "-s Zahl [Zahl]...";
+        return "Zahl [Zahl]...";
     }
 
     @Override
